@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: 093842890430.dkr.ecr.us-east-1.amazonaws.com/frontend:v01
+        image: 093842890430.dkr.ecr.us-east-1.amazonaws.com/frontend:{{APP_VERSION}}
         ports:
         - containerPort: 80
         resources:
@@ -93,8 +93,3 @@ spec:
 # How it looks like  ?   serviceName.nameSpace.svc.cluster.local
                           # x-svc.x.svc.cluster.local 
                           # y-svc.y.svc.cluster.local
-
-
-# 2024/02/16 01:31:42 [error] 43#43: *41 no live upstreams while connecting to upstream, client: 10.0.0.231, 
-# server: console.b56-roboshop.online, request: "GET / HTTP/1.1", 
-# upstream: "http://default-frontend-ingress-console.b56-roboshop.online-frontend-svc-80/", host: "console.b56-roboshop.online"
