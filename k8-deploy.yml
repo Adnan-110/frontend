@@ -42,6 +42,7 @@ spec:
       targetPort: 80 
 
 --- 
+
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -61,3 +62,39 @@ spec:
         type: Utilization
         averageUtilization: 75
 
+--- 
+# Creating Ingress To Expose this service
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "home.adnans-portfolio.cloud"
+      http:
+        paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend-svc
+              port:
+                number: 80
+
+
+# You can call the service by it's name like frontend-svc if it's available in the default nameSpace 
+
+# What if the service is available on x nameSpace ?
+# How service available in x nameSpace can talk to other service in y nameSpace ?
+# in this case, you need to use Fully Qualified Domain Name(FQDN) 
+
+# How it looks like  ?   serviceName.nameSpace.svc.cluster.local
+                          # x-svc.x.svc.cluster.local 
+                          # y-svc.y.svc.cluster.local
+
+
+# 2024/02/16 01:31:42 [error] 43#43: *41 no live upstreams while connecting to upstream, client: 10.0.0.231, 
+# server: console.b56-roboshop.online, request: "GET / HTTP/1.1", 
+# upstream: "http://default-frontend-ingress-console.b56-roboshop.online-frontend-svc-80/", host: "console.b56-roboshop.online"
