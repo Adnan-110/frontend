@@ -5,6 +5,9 @@
 // There is another way to perform same action where we dont have to pass and catch value 
 // Simply declare environment variable like below
 env.COMPONENT="frontend"
-angular()
+env.APP_TYPE="angular"
+// angular()
 
 // To see further use check maven and helloWorld file in shared library
+
+docker()
